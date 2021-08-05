@@ -7,7 +7,8 @@ as opposed to configuration a Lambda Authorizer in API Gateway (for more on that
 
 ## Local testing
 
-You can test the handler locally. You just need to obtain a valid JWT access token to perform the test. The easiest way to do this is to set up
+You can test the handler locally. First, set the fully qualfied package ID of the package you're testing (for example, `expertek/example`) in
+the `.env` file contained here. Then, you need to obtain a valid JWT access token to perform the test. The easiest way to do this is to set up
 a Lambda function that logs inbound headers (you can just modify the example here to do that), set up a proxy route in `expiora`, and call it
 from `expiort` or an extension. Then check the logged header output and use the provided token. Note that proxy router tokens are short lived,
 so you'll need to grab it when you're ready to test.
@@ -38,5 +39,5 @@ npm run bundle
 
 This will generate a local `expertekio-jwt-lambda-identity-example-node.zip` bundle (ZIP file) containing all the source and node modules the function needs.
 
-After that, upload to a new Lambda function, and set up an integration with API Gateway. At that point, you're ready to test using `expiora`
-or the `ExpertekIODataService` in an extension.
+After that, upload to a new Lambda function, and set up an integration with API Gateway. Be sure to set the `PACKAGE` environment variable on your Lambda
+function to check for the correct package access of the caller. At that point, you're ready to test using `expiora` or the `ExpertekIODataService` in an extension.

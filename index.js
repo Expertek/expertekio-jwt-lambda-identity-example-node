@@ -1,3 +1,4 @@
+require('dotenv').config({ silent: true });
 
 const jwksClient = require('jwks-rsa');
 const jwt = require('jsonwebtoken');
@@ -52,6 +53,7 @@ exports.handler = async (event) => {
 
   let claims = {};
 
+  // validate token
   try {
     claims = await authenticate(event);
   } catch (err) {
@@ -60,6 +62,17 @@ exports.handler = async (event) => {
       statusCode: 401,
       headers: {},
       body: "Unauthorized."
+    };
+  }
+
+  // check claims for access to this package
+  const access = claims.pks.reduce((prev, pkg) => prev || pkg === process.env.PACKAGE, false)
+  if (!access) {
+    console.log('package "' + process.env.PACKAGE + '" not found in ' + claims.pks.join(', '));
+    return {
+      statusCode: 403,
+      headers: {},
+      body: "Forbidden."
     };
   }
 
