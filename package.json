@@ -1,0 +1,19 @@
+{
+  "name": "expertekio-jwt-lambda-identity-example",
+  "version": "0.1.0",
+  "description": "Example API Gateway/Lambda handler using Expertek.io JWT authorization in Node.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "lambda-local --timeout 300 --lambda-path index.js --event-path event.json",
+    "bundle": "rm -f expertekio-jwt-lambda-identity-example-node.zip ; zip expertekio-jwt-lambda-identity-example-node.zip -r *.js node_modules/"
+  },
+  "author": "Andrew Mostello",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^2.0.4"
+  },
+  "devDependencies": {
+    "lambda-local": "^2.0.0"
+  }
+}
